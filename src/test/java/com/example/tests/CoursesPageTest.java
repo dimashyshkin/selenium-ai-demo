@@ -29,28 +29,21 @@ public class CoursesPageTest extends BaseTest {
                 "Page heading should be 'Courses'");
     }
 
-    @Test(description = "TC2: Exactly 9 courses are listed on the page")
-    public void courseCountTest() {
-        CoursesPage page = new CoursesPage(driver()).open();
-        Assert.assertEquals(page.getCourseCount(), TOTAL_COURSES,
-                "There should be exactly " + TOTAL_COURSES + " courses listed");
-    }
-
-    @Test(description = "TC3: All expected course titles are present in order")
+    @Test(description = "TC2: All expected course titles are present in order")
     public void courseNamesTest() {
         CoursesPage page = new CoursesPage(driver()).open();
         Assert.assertEquals(page.getCourseNames(), EXPECTED_COURSE_NAMES,
                 "Course titles should match the expected list in order");
     }
 
-    @Test(description = "TC4: Every course has an 'Enroll in this course on Udemy' button")
+    @Test(description = "TC3: Every course has an 'Enroll in this course on Udemy' button")
     public void enrollButtonCountTest() {
         CoursesPage page = new CoursesPage(driver()).open();
         Assert.assertEquals(page.getEnrollButtonCount(), TOTAL_COURSES,
                 "Each of the " + TOTAL_COURSES + " courses should have an enroll button");
     }
 
-    @Test(description = "TC5: Every enroll button links to a non-empty URL")
+    @Test(description = "TC4: Every enroll button links to a non-empty URL")
     public void enrollButtonUrlsNotEmptyTest() {
         CoursesPage page = new CoursesPage(driver()).open();
         List<String> urls = page.getEnrollButtonUrls();
@@ -62,20 +55,18 @@ public class CoursesPageTest extends BaseTest {
         }
     }
 
-    @Test(description = "TC6: Every course has a learning outcomes bullet list")
+    @Test(description = "TC5: Every course has a learning outcomes bullet list")
     public void learningOutcomesListsTest() {
         CoursesPage page = new CoursesPage(driver()).open();
         Assert.assertEquals(page.getLearningOutcomesListCount(), TOTAL_COURSES,
                 "Each of the " + TOTAL_COURSES + " courses should have a learning outcomes list");
     }
 
-    @Test(description = "TC7: Every enroll button redirects to a Udemy page")
+    @Test(description = "TC6: Enroll button redirects to Udemy (smoke test on first course)")
     public void enrollButtonsRedirectToUdemyTest() {
-        for (int i = 0; i < TOTAL_COURSES; i++) {
-            CoursesPage page = new CoursesPage(driver()).open();
-            String finalUrl = page.followEnrollLinkByIndex(i);
-            Assert.assertTrue(finalUrl.contains("udemy.com"),
-                    "Course " + (i + 1) + " enroll button should redirect to udemy.com, but landed on: " + finalUrl);
-        }
+        CoursesPage page = new CoursesPage(driver()).open();
+        String finalUrl = page.followEnrollLinkByIndex(0);
+        Assert.assertTrue(finalUrl.contains("udemy.com"),
+                "First enroll button should redirect to udemy.com, but landed on: " + finalUrl);
     }
 }

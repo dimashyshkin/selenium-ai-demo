@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CoursesPage extends BasePage {
 
@@ -35,32 +34,26 @@ public class CoursesPage extends BasePage {
 
     @Step("Get course count")
     public int getCourseCount() {
-        return (int) driver.findElements(COURSE_TITLES).stream()
-                           .filter(WebElement::isDisplayed)
-                           .count();
+        return getVisibleCourseTitles().size();
     }
 
     @Step("Get course names")
     public List<String> getCourseNames() {
-        return driver.findElements(COURSE_TITLES).stream()
-                     .filter(WebElement::isDisplayed)
-                     .map(WebElement::getText)
-                     .collect(Collectors.toList());
+        return getVisibleCourseTitles().stream()
+                .map(WebElement::getText)
+                .toList();
     }
 
     @Step("Get enroll button count")
     public int getEnrollButtonCount() {
-        return (int) driver.findElements(ENROLL_BUTTONS).stream()
-                           .filter(WebElement::isDisplayed)
-                           .count();
+        return getVisibleEnrollButtons().size();
     }
 
     @Step("Get enroll button URLs")
     public List<String> getEnrollButtonUrls() {
-        return driver.findElements(ENROLL_BUTTONS).stream()
-                     .filter(WebElement::isDisplayed)
-                     .map(el -> el.getAttribute("href"))
-                     .collect(Collectors.toList());
+        return getVisibleEnrollButtons().stream()
+                .map(el -> el.getAttribute("href"))
+                .toList();
     }
 
     @Step("Get learning outcomes list count")
@@ -76,5 +69,17 @@ public class CoursesPage extends BasePage {
         driver.get(href);
         wait.until(ExpectedConditions.urlContains("udemy.com"));
         return driver.getCurrentUrl();
+    }
+
+    private List<WebElement> getVisibleCourseTitles() {
+        return driver.findElements(COURSE_TITLES).stream()
+                     .filter(WebElement::isDisplayed)
+                     .toList();
+    }
+
+    private List<WebElement> getVisibleEnrollButtons() {
+        return driver.findElements(ENROLL_BUTTONS).stream()
+                     .filter(WebElement::isDisplayed)
+                     .toList();
     }
 }
