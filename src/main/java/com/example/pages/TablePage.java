@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TablePage extends BasePage {
 
@@ -66,17 +65,17 @@ public class TablePage extends BasePage {
 
     @Step("Get Reset button visibility")
     public boolean isResetButtonVisible() {
-        return driver.findElement(RESET_BUTTON).isDisplayed();
+        return isDisplayed(RESET_BUTTON);
     }
 
     @Step("Get 'No matching courses' message visibility")
     public boolean isNoDataMessageVisible() {
-        return driver.findElement(NO_DATA_MESSAGE).isDisplayed();
+        return isDisplayed(NO_DATA_MESSAGE);
     }
 
     @Step("Get level '{level}' checked state")
     public boolean isLevelChecked(String level) {
-        return driver.findElement(By.cssSelector("input[name='level'][value='" + level + "']")).isSelected();
+        return waitForVisible(By.cssSelector("input[name='level'][value='" + level + "']")).isSelected();
     }
 
     @Step("Get selected language")
@@ -89,7 +88,7 @@ public class TablePage extends BasePage {
 
     @Step("Get selected enrollment dropdown label")
     public String getSelectedEnrollmentLabel() {
-        return driver.findElement(ENROLL_DROPDOWN_LABEL).getText();
+        return getText(ENROLL_DROPDOWN_LABEL);
     }
 
     @Step("Get visible row count")
@@ -103,14 +102,14 @@ public class TablePage extends BasePage {
     public List<String> getVisibleLanguages() {
         return getVisibleRows().stream()
                 .map(row -> row.findElement(By.cssSelector("td[data-col='language']")).getText())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Step("Get visible level values")
     public List<String> getVisibleLevels() {
         return getVisibleRows().stream()
                 .map(row -> row.findElement(By.cssSelector("td[data-col='level']")).getText())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Step("Get visible enrollments as integers")
@@ -118,19 +117,19 @@ public class TablePage extends BasePage {
         return getVisibleRows().stream()
                 .map(row -> row.findElement(By.cssSelector("td[data-col='enrollments']")).getText())
                 .map(text -> Integer.parseInt(text.replace(",", "").trim()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Step("Get visible course names")
     public List<String> getVisibleCourseNames() {
         return getVisibleRows().stream()
                 .map(row -> row.findElement(By.cssSelector("td[data-col='course']")).getText())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<WebElement> getVisibleRows() {
         return driver.findElements(TABLE_ROWS).stream()
                      .filter(WebElement::isDisplayed)
-                     .collect(Collectors.toList());
+                     .toList();
     }
 }

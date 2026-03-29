@@ -20,6 +20,6 @@ public class LoggedInPage extends BasePage {
 
     @Step("Check Log out button is displayed")
     public boolean isLogoutButtonDisplayed() {
-        return waitForVisible(LOGOUT_BUTTON).isDisplayed();
+        return isDisplayed(LOGOUT_BUTTON);
     }
 }
