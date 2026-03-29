@@ -41,11 +41,12 @@ public abstract class BaseTest {
                 if (headless) options.addArguments("--headless");
                 yield new EdgeDriver(options);
             }
-            default -> {
+            case "chrome" -> {
                 ChromeOptions options = new ChromeOptions();
                 if (headless) options.addArguments("--headless");
                 yield new ChromeDriver(options);
             }
+            default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
         };
         driverThreadLocal.set(driver);
     }

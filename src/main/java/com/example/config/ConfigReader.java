@@ -11,9 +11,10 @@ public class ConfigReader {
     static {
         try (InputStream input = ConfigReader.class.getClassLoader()
                 .getResourceAsStream("config.properties")) {
-            if (input != null) {
-                properties.load(input);
+            if (input == null) {
+                throw new RuntimeException("config.properties not found on classpath");
             }
+            properties.load(input);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load config.properties", e);
         }
@@ -21,10 +22,6 @@ public class ConfigReader {
 
     public static String get(String key) {
         return System.getProperty(key, properties.getProperty(key));
-    }
-
-    public static String getBaseUrl() {
-        return System.getProperty("base.url", properties.getProperty("base.url", "https://example.com"));
     }
 
     public static String getBrowser() {
