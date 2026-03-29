@@ -20,18 +20,18 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
-        return properties.getProperty(key);
+        return System.getProperty(key, properties.getProperty(key));
     }
 
     public static String getBaseUrl() {
-        return properties.getProperty("base.url", "https://example.com");
+        return System.getProperty("base.url", properties.getProperty("base.url", "https://example.com"));
     }
 
     public static String getBrowser() {
-        return properties.getProperty("browser", "chrome");
+        return System.getProperty("browser", properties.getProperty("browser", "chrome"));
     }
 
     public static boolean isHeadless() {
-        return Boolean.parseBoolean(properties.getProperty("headless", "false"));
+        return Boolean.parseBoolean(System.getProperty("headless", properties.getProperty("headless", "false")));
     }
 }
