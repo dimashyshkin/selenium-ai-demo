@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Selenium AI Demo Suite" verbose="1" parallel="tests" thread-count="3">
+    <test name="Login Page Tests">
+        <classes>
+            <class name="com.example.tests.LoginPageTest"/>
+        </classes>
+    </test>
+    <test name="Exceptions Page Tests">
+        <classes>
+            <class name="com.example.tests.ExceptionsPageTest"/>
+        </classes>
+    </test>
+    <test name="Table Page Tests">
+        <classes>
+            <class name="com.example.tests.TablePageTest"/>
+        </classes>
+    </test>
+    <test name="Courses Page Tests">
+        <classes>
+            <class name="com.example.tests.CoursesPageTest"/>
+        </classes>
+    </test>
+</suite>

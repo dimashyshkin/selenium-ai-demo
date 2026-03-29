@@ -1,0 +1,20 @@
+# Build output
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code (local overrides only)
+.vscode/settings.local.json
+
+# Allure CLI local installation
+.allure/
+
+# Claude Code local permission overrides (personal, not project config)
+.claude/settings.local.json

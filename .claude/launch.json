@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Maven Test Suite (TestNG)",
+      "runtimeExecutable": "mvn",
+      "runtimeArgs": ["test"],
+      "port": null
+    }
+  ]
+}
